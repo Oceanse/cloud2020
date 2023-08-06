@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzq.springcloud.dao.PaymentDao"><!--dao层全类名-->
+    <resultMap id="BaseResultMap" type="com.xzq.springcloud.entities.Payment"><!--映射的pojo对象全类名-->
+        <id column="id" property="id" jdbcType="BIGINT"/><!--表字段和entity映射关系-->
+        <id column="serial" property="serial" jdbcType="VARCHAR"/><!--表字段和entity映射关系-->
+    </resultMap>
+
+    <!--insert方法，yaml中配置：type-aliases-package: com.xzq.springcloud.entities，
+    所以parameterType="payment"=com.xzq.springcloud.entities.Payment
+    -->
+    <insert id="create" parameterType="payment" useGeneratedKeys="true" keyProperty="id">
+            insert into payment(serial) values (#{serial})
+    </insert>
+
+    <!--查询方法-->
+    <select id="getPaymentById" parameterType="Long" resultMap="BaseResultMap">
+        select * from payment where id = #{id}
+    </select>
+
+
+</mapper>

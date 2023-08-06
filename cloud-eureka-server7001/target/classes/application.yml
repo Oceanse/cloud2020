@@ -1,0 +1,14 @@
+server:
+  port: 7001
+
+eureka:
+  instance:
+    hostname: eureka7001.com #主机名称, 修改下/etc/hosts文件
+  client:
+    register-with-eureka: false #表示不向注册中心注册自己
+    fetch-registry: false #false表示自己就是注册中心，我的职责就是维护服务实例,并不区检索服务
+    service-url:
+      defaultZone: http://eureka7002.com:7002/eureka/ #搭建Eureka集群,互相注册，相互守望，这里注册7002服务的地址(部署eureka集群时defaultZone中为什么必须包含路径/eureka)
+  server:
+    enable-self-preservation: false # 关闭自我保护机制 保证不可用服务及时清除
+    eviction-interval-timer-in-ms: 2000

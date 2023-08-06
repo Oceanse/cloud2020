@@ -1,0 +1,14 @@
+server:
+  port: 83
+
+spring:
+  application:
+    name: nacos-order-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:80  # 搭建nacos集群后，注册中心的地址可以换成nginx的地址
+
+
+service-url:
+  nacos-user-service: http://nacos-config-client

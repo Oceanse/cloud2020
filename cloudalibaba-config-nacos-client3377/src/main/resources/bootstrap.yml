@@ -1,0 +1,19 @@
+server:
+  port: 3377
+spring:
+  application:
+    name: nacos-config-client
+  cloud:
+    nacos:
+      discovery:
+        #server-addr: 172.16.12.128:8848 # 注册中心地址
+        server-addr: localhost:80 # 搭建nacos集群后，注册中心的地址可以换成nginx的地址
+      config:
+        #server-addr: 172.16.12.128:8848 # 配置中心地址
+        server-addr: localhost:80 # # 搭建nacos集群后，配置中心的地址可以换成nginx的地址
+        file-extension: yaml # 这里指定的文件格式需要和nacos上新建的配置文件后缀相同，否则读不到
+        group: DEFAULT_GROUP2 #可以用来进行业务划分
+        namespace: b93f2a97-ac85-498d-afc9-36eb796a2904 #可以用来进行环境划分，比如开发、测试、生产环境，我们就可以创建三个Namespace,注意这里要填写nacos gui上namespace对应的ID, 而不是名字
+
+#nacos界面中datald(配置文件名称)的拼接格： ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+#注意：当spring.profile.active为空时，对应的连接符 - 也将不存在，datald 的拼接格式变成${prefix}.${file-extension}

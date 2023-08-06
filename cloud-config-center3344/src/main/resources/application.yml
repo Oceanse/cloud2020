@@ -1,0 +1,37 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          skipSslValidation: true # 跳过ssl认证
+          uri: https://gitee.com/oceanse/springcloud-config.git #gitee上面的git仓库地址,使用ssh地址会存在一系列问题，这里使用https地址
+          search-paths:
+            - springcloud-config #搜索目录
+          username: oceanse #仓库地址使用https地址时候，需要配置认证信息
+          password: Az131619
+      #label: dev  #读取的git仓库的分支,可以访问地址中指定label
+#配置读取规则: http://ip:port/{label}/{application-{profile}.yml,
+#比如：http://localhost:3344/master/config-dev.yml,测试发现配置文件的只要符合xxx-yyy.yml既可以通过上述规则访问
+#比如访问http://localhost:3344/master/any-some.yml
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+
+# 暴露bus刷新配置的端点
+management:  #是所有actuator的配置
+  endpoints: #management.endpoint.端点名.xxxx  对某个端点的具体配置,这里是对所有的端点
+    web:
+      exposure:
+        include: "bus-refresh"  #以web方式暴露bus-refresh端点
